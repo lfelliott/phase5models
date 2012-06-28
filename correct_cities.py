@@ -5,10 +5,13 @@ citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
 print "Making city layer."
 
+selectstr = "\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 31 or \"lulc\" =27"
+print selectstr
+
 def applycities(fc):
 	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
 	layername = "l_p5_%s" % fc
-	print "Making working layer"
+	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by location"
 	DM.SelectLayerByLocation(layername, "COMPLETELY_WITHIN", citylayer, "", "NEW_SELECTION")
