@@ -1,12 +1,5 @@
-import os
 import csv
 from arcpy import management as DM
-from time import time
-from string import zfill
-from datetime import date
-# arcpy.env.workspace = "C:/WorkSpace/Phase5/Objects/p5_working.gdb"
-# outf = open("c:/workspace/phase5/Objects/modellog.txt", "a")
-# outf.writelines("\n" + str(date.today()) + " --Phase 5 --\n")
 
 
 soils = "D:\\Projects\\Texas Ecological Systems\\Phase V\\GIS\\P5Soils.gdb\\p5soils_working"
@@ -15,9 +8,11 @@ DM.MakeFeatureLayer(soils, soillayer)
 
 f = open('ecogrps.csv')
 ecogrps = []
+
 for item in f.readlines():
 	ecogrps.append(item.strip())
 f.close()
+
 p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\north_test4"
 layername = "l_p5_north_working"
 cntchangedobjects = 0
