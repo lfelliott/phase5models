@@ -9,7 +9,7 @@ eliminated_result = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_e
 intrsct_result = "c:\\Workspace\\Phase5\Objects\\p5_working_test.gdb\\temp_intrsct"
 intrsct_lyr = "l_temp_intrsct"
 
-def applycities(fc):
+def applyelimupdate(fc):
 	calcfield = "\"%s.VegNum\"" % fc
 	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
 	layername = "l_p5_%s" % fc
@@ -29,6 +29,7 @@ def applycities(fc):
 	if (int(str(DM.GetCount(layername))) > 0
 		print "calculate vegnum to vegnum"
 		DM.CalculateField(layername, calcfield, "[temp_intrsct.VegNum]", "VB", "")
+	print "deleting temp layers"
 	DM.Delete(elim_lyr)
 	DM.Delete(elim_objs)
 	DM.Delete(eliminated_result)
@@ -36,5 +37,6 @@ def applycities(fc):
 	DM.Delete(intrsct_result)
 	
 fcs = ["west_test5", "south_test5", "north_test5"]
+fcs = ["north_test6"]
 for item in fcs:
 	applyelimupdate(item)
