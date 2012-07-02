@@ -12,12 +12,7 @@ intrsct_lyr = "l_temp_intrsct"
 elim_subset = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_elim_subset"
 elim_subsetlyr = "l_temp_elim_subset"
 
-i = 1
-
 def applyelimupdate(fc):
-	elim_lyr = "l_temp_elim_%s" % i
-	intrsct_lyr = "l_temp_intrsct_%s" % i
-	elim_subsetlyr = "l_temp_elim_subset_%s" % i
 	calcfield = "%s.VegNum" % fc
 	selectstr = "\"%s.Vegnum\" = 99998" % fc
 	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
@@ -45,12 +40,13 @@ def applyelimupdate(fc):
 		print "calculate vegnum to vegnum for " + str(DM.GetCount(layername)) + " objects"
 		DM.CalculateField(layername, calcfield, "[temp_intrsct.VegNum]", "VB", "")
 	print "deleting temp layers"
-	
+	DM.Delete(elim_lyr)	
 	DM.Delete(elim_objs)
 	DM.Delete(eliminated_result)
+	DM.Delete(intrsct_lyr)
 	DM.Delete(intrsct_result)
+	DM.Delete(elim_subsetlyr)
 	DM.Delete(elim_subset)
-	i = i + 1
 	
 #fcs = ["south_test5", "west_test5", "north_test5"]
 fcs = ["west_test5", "north_test5"]
