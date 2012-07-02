@@ -34,7 +34,7 @@ def applyelimupdate(fc):
 	DM.Delete(eliminated_result)
 	DM.Delete(intrsct_result)
 	
-#fcs = ["west_test5", "south_test5", "north_test5"]
-fcs = ["north_test6"]
+fcs = ["south_test5", "west_test5", "north_test5"]
+#fcs = ["north_test6"]
 for item in fcs:
 	applyelimupdate(item)
