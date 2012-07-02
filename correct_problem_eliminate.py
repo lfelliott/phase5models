@@ -2,7 +2,6 @@ from arcpy import management as DM
 from arcpy import analysis as AN
 
 elim_objs = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_elim"
-elim_lyr = "l_temp_elim"
 
 eliminated_result = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_eliminated"
 
@@ -40,15 +39,14 @@ def applyelimupdate(fc):
 		print "calculate vegnum to vegnum for " + str(DM.GetCount(layername)) + " objects"
 		DM.CalculateField(layername, calcfield, "[temp_intrsct.VegNum]", "VB", "")
 	print "deleting temp layers"
-	DM.Delete(elim_lyr)	
+	DM.Delete(elim_subsetlyr)
+	DM.Delete(intrsct_lyr)
 	DM.Delete(elim_objs)
 	DM.Delete(eliminated_result)
-	DM.Delete(intrsct_lyr)
 	DM.Delete(intrsct_result)
-	DM.Delete(elim_subsetlyr)
 	DM.Delete(elim_subset)
 	
 #fcs = ["south_test5", "west_test5", "north_test5"]
-fcs = ["west_test5", "north_test5"]
+fcs = ["north_test5"]
 for item in fcs:
 	applyelimupdate(item)
