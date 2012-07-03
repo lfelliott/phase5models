@@ -23,11 +23,12 @@ def addcliffs(fc):
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	for clifftype in vegtypes:
+		print vegdict[clifftype]
 		DM.SelectLayerByAttribute(layername, "NEW_SELECTION", vegdict[clifftype])
 		if (int(str(DM.GetCount(layername))) > 0):
 			print "adding cliff to " + str(DM.GetCount(layername)) + " objects"
 			DM.CalculateField(layername, "VegNum", clifftype, "VB", "")
 
-fcs = ["north_test5"]
+fcs = ["south_test5", "west_test5", "north_test5"]
 for item in fcs:
 	addcliffs(item)	
