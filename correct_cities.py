@@ -5,7 +5,7 @@ citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
 print "Making city layer."
 
-selectstr = "\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 31 or \"lulc\" =27"
+selectstr = "\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 11 or \"lulc\" = 31 or \"lulc\" =27"
 print selectstr
 
 def applycities(fc):
