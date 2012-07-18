@@ -1,4 +1,5 @@
 from arcpy import management as DM
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 selectbase = "\"slope100\" = 1 AND \"epa_ecoreg\" like "
 vegtypes =[]
 vegdict = {}
@@ -18,7 +19,7 @@ vegtypes.append(806)
 vegdict[806] = "\"slope100\" = 1 AND (\"epa_ecoreg\" like '30%' OR \"epa_ecoreg\" = '24e') AND (\"lulc\" = 3 OR \"lulc\" = 5 OR \"lulc\" = 7 OR \"lulc\" = 11 OR \"lulc\" = 19 OR \"lulc\" = 31)"
 
 def addcliffs(fc):
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath,fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
