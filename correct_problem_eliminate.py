@@ -1,20 +1,21 @@
 from arcpy import management as DM
 from arcpy import analysis as AN
 
-elim_objs = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_elim"
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+elim_objs = "%stemp_elim" % gdbpath
 
-eliminated_result = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_eliminated"
+eliminated_result = "%stemp_eliminated" % gdbpath
 
-intrsct_result = "c:\\Workspace\\Phase5\Objects\\p5_working_test.gdb\\temp_intrsct"
+intrsct_result = "%stemp_intrsct" % gdbpath
 intrsct_lyr = "l_temp_intrsct"
 
-elim_subset = "c:\\Workspace\\Phase5\\Objects\\p5_working_test.gdb\\temp_elim_subset"
+elim_subset = "%stemp_elim_subset" % gdbpath
 elim_subsetlyr = "l_temp_elim_subset"
 
 def applyelimupdate(fc):
 	calcfield = "%s.VegNum" % fc
 	selectstr = "\"%s.Vegnum\" = 99998" % fc
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
@@ -46,7 +47,7 @@ def applyelimupdate(fc):
 	DM.Delete(intrsct_result)
 	DM.Delete(elim_subset)
 	
-#fcs = ["south_test5", "west_test5", "north_test5"]
-fcs = ["north_test5"]
+fcs = ["south_test5", "west_test5", "north_test5"]
+#fcs = ["north_test5"]
 for item in fcs:
 	applyelimupdate(item)
