@@ -30,7 +30,7 @@ def elapsed_time(t0):
 
 def applyjuniper(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
-	layername = "l_p5_%s" % fc
+	layername = "lj_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
@@ -47,7 +47,7 @@ def fixsaltcedar(fc):
 	# this is mostly on riparian or loamy, clay loam etc.
 	selectstr2 = "(\"lulc\" = 11 or \"lulc\" = 19) and \"EcoGroup\" not like '%Bottomland%' and \"VegNum\" = 9204 and (\"epa_ecoreg\" like '30%' or \"epa_ecoreg\" like '26%' or \"epa_ecoreg\" = '24e')"
 	p5_working = "%s%s" % (gdbpath, fc)
-	layername = "l_p5_%s" % fc
+	layername = "ls_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
@@ -60,7 +60,7 @@ def fixsaltcedar(fc):
 
 def applyliveoak(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
-	layername = "l_p5_%s" % fc
+	layername = "lo_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
