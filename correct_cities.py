@@ -51,7 +51,7 @@ def applyroads(fc):
 	else:
 		print "nothing to calculate"
 
-fcs = ["west_working", "working", "north_working"]
+fcs = ["west_working", "south_working", "north_working"]
 for item in fcs:
 	processstart = time()
 	applycities(item)
