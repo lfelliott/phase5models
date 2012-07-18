@@ -1,5 +1,7 @@
 from arcpy import management as DM
 
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+
 juniper_range = "D:\\GIS\\US\\Little\\junipers.shp"
 juniperlayer = "l_juniper"
 print "Making juniper layer."
@@ -18,7 +20,7 @@ print selectstrlo
 
 
 def applyjuniper(fc):
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
@@ -35,7 +37,7 @@ def applyjuniper(fc):
 def fixsaltcedar(fc):
 	# this is mostly on riparian or loamy, clay loam etc.
 	selectstr2 = "(\"lulc\" = 11 or \"lulc\" = 19) and \"EcoGroup\" not like '%Bottomland%' and \"VegNum\" = 9204 and (\"epa_ecoreg\" like '30%' or \"epa_ecoreg\" like '26%' or \"epa_ecoreg\" = '24e')"
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
@@ -48,7 +50,7 @@ def fixsaltcedar(fc):
 		print "nothing to calculate"	
 
 def applyliveoak(fc):
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
@@ -61,6 +63,8 @@ def applyliveoak(fc):
 	else:
 		print "nothing to calculate"
 	print "selecting by location"		
+
+	
 	
 applyjuniper("north_test5")
 
