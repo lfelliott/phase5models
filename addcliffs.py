@@ -30,7 +30,7 @@ def elapsed_time(t0):
 	m,s = divmod(rsecs,60)
 	return zfill(h,2) + ":" + zfill(m,2) + ":" + zfill(s,2)
 
-	def addcliffs(fc):
+def addcliffs(fc):
 	p5_working = "%s%s" % (gdbpath,fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
