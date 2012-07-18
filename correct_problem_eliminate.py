@@ -1,5 +1,8 @@
 from arcpy import management as DM
 from arcpy import analysis as AN
+from time import time
+from string import zfill
+from datetime import date
 
 gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 elim_objs = "%stemp_elim" % gdbpath
@@ -12,6 +15,14 @@ intrsct_lyr = "l_temp_intrsct"
 elim_subset = "%stemp_elim_subset" % gdbpath
 elim_subsetlyr = "l_temp_elim_subset"
 
+starttime = time()
+
+def elapsed_time(t0):
+	seconds = int(round(time() - t0))
+	h,rsecs = divmod(seconds,3600)
+	m,s = divmod(rsecs,60)
+	return zfill(h,2) + ":" + zfill(m,2) + ":" + zfill(s,2)
+	
 def applyelimupdate(fc):
 	calcfield = "%s.VegNum" % fc
 	selectstr = "\"%s.Vegnum\" = 99998" % fc
@@ -47,7 +58,8 @@ def applyelimupdate(fc):
 	DM.Delete(intrsct_result)
 	DM.Delete(elim_subset)
 	
-fcs = ["south_test5", "west_test5", "north_test5"]
-#fcs = ["north_test5"]
+fcs = ["south_working", "west_working", "north_working"]
 for item in fcs:
+	processstart = time()
 	applyelimupdate(item)
+	print "process time = " + elapsed_time(processstart) + " for " + item + "."

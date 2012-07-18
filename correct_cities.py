@@ -1,4 +1,9 @@
 from arcpy import management as DM
+from time import time
+from string import zfill
+from datetime import date
+
+
 gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 cities = "D:\\GIS\\Texas Base Layers.gdb\\Cities"
 citylayer = "l_cities"
@@ -7,6 +12,14 @@ print "Making city layer."
 
 selectstr = "\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 11 or \"lulc\" = 31 or \"lulc\" =27"
 print selectstr
+
+starttime = time()
+
+def elapsed_time(t0):
+	seconds = int(round(time() - t0))
+	h,rsecs = divmod(seconds,3600)
+	m,s = divmod(rsecs,60)
+	return zfill(h,2) + ":" + zfill(m,2) + ":" + zfill(s,2)
 
 def applycities(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
@@ -38,7 +51,11 @@ def applyroads(fc):
 	else:
 		print "nothing to calculate"
 
-fcs = ["west_test5", "south_test5", "north_test5"]
+fcs = ["west_working", "working", "north_working"]
 for item in fcs:
+	processstart = time()
 	applycities(item)
+	print "process time (cities)= " + elapsed_time(processstart) + " for " + item + "."
+	processstart = time()
 	applyroads(item)
+	print "process time (roads)= " + elapsed_time(processstart) + " for " + item + "."

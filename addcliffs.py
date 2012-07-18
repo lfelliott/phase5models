@@ -1,4 +1,8 @@
 from arcpy import management as DM
+from time import time
+from string import zfill
+from datetime import date
+
 gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 selectbase = "\"slope100\" = 1 AND \"epa_ecoreg\" like "
 vegtypes =[]
@@ -17,8 +21,16 @@ vegtypes.append(807)
 vegdict[807] = "\"slope100\" = 1 AND (\"epa_ecoreg\" like '30%' OR \"epa_ecoreg\" = '24e') AND (\"lulc\" = 1 OR \"lulc\" = 15 OR \"lulc\" = 27)"
 vegtypes.append(806)
 vegdict[806] = "\"slope100\" = 1 AND (\"epa_ecoreg\" like '30%' OR \"epa_ecoreg\" = '24e') AND (\"lulc\" = 3 OR \"lulc\" = 5 OR \"lulc\" = 7 OR \"lulc\" = 11 OR \"lulc\" = 19 OR \"lulc\" = 31)"
+starttime = time()
 
-def addcliffs(fc):
+
+def elapsed_time(t0):
+	seconds = int(round(time() - t0))
+	h,rsecs = divmod(seconds,3600)
+	m,s = divmod(rsecs,60)
+	return zfill(h,2) + ":" + zfill(m,2) + ":" + zfill(s,2)
+
+	def addcliffs(fc):
 	p5_working = "%s%s" % (gdbpath,fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
@@ -30,6 +42,8 @@ def addcliffs(fc):
 			print "adding cliff to " + str(DM.GetCount(layername)) + " objects"
 			DM.CalculateField(layername, "VegNum", clifftype, "VB", "")
 
-fcs = ["south_test5", "west_test5", "north_test5"]
+fcs = ["south_working", "west_working", "north_working"]
 for item in fcs:
+	processstart = time()
 	addcliffs(item)	
+	print "process time (cliffs)= " + elapsed_time(processstart) + " for " + item + "."

@@ -1,4 +1,7 @@
 from arcpy import management as DM
+from time import time
+from string import zfill
+from datetime import date
 
 gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 
@@ -17,7 +20,13 @@ print selectstr
 selectstrlo = "\"VegNum\" = 1402"
 print selectstrlo
 
+starttime = time()
 
+def elapsed_time(t0):
+	seconds = int(round(time() - t0))
+	h,rsecs = divmod(seconds,3600)
+	m,s = divmod(rsecs,60)
+	return zfill(h,2) + ":" + zfill(m,2) + ":" + zfill(s,2)
 
 def applyjuniper(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
@@ -69,7 +78,11 @@ def applyliveoak(fc):
 applyjuniper("north_test5")
 
 
-fcs = ["north_test5", "south_test5"]
+fcs = ["north_working", "south_working"]
 for item in fcs:
+	processstart = time()
 	fixsaltcedar(item)
+	print "process time (fixsaltcedar)= " + elapsed_time(processstart) + " for " + item + "."
+	processstart = time()
 	applyliveoak(item)
+	print "process time (liveoak)= " + elapsed_time(processstart) + " for " + item + "."
