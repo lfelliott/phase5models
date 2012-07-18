@@ -23,7 +23,22 @@ def applycities(fc):
 		DM.CalculateField(layername, "VegNum", 9411)
 	else:
 		print "nothing to calculate"
+		
+def applyroads(fc):
+	roadselect = "\"road\" = 1 and not (\"VegNum\" = 9410 or \"VegNum\" = 9411)"
+	p5_working = "%s%s" % (gdbpath, fc)
+	layername = "lr_p5_%s" % fc
+	print "Making working layer for " + fc
+	DM.MakeFeatureLayer(p5_working, layername)
+	print "selecting by attribute"
+	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", roadselect)
+	if (int(str(DM.GetCount(layername))) > 0):
+		print "calculating on " + str(DM.GetCount(layername)) + " objects."
+		DM.CalculateField(layername, "VegNum", 9411)
+	else:
+		print "nothing to calculate"
 
 fcs = ["west_test5", "south_test5", "north_test5"]
 for item in fcs:
 	applycities(item)
+	applyroads(item)
