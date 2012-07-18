@@ -45,7 +45,7 @@ def applyelimupdate(fc):
 	AN.Intersect([eliminated_result, elim_objs], intrsct_result)
 	print "make feature layer for joining and join on morap_objid_1"
 	DM.MakeFeatureLayer(intrsct_result, intrsct_lyr)
-	DM.AddJoin(layername, "OBJECTID", intrsct_lyr, "morap_objid_1", "KEEP_ALL")
+	DM.AddJoin(layername, "morap_objid", intrsct_lyr, "morap_objid_1", "KEEP_ALL")
 	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstr)
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculate vegnum to vegnum for " + str(DM.GetCount(layername)) + " objects"
@@ -59,6 +59,7 @@ def applyelimupdate(fc):
 	DM.Delete(elim_subset)
 	
 fcs = ["south_working", "west_working", "north_working"]
+fcs = ["west_working", "north_working"]
 for item in fcs:
 	processstart = time()
 	applyelimupdate(item)
