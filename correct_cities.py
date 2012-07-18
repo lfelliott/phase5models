@@ -1,5 +1,5 @@
 from arcpy import management as DM
-
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
 cities = "D:\\GIS\\Texas Base Layers.gdb\\Cities"
 citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
@@ -9,7 +9,7 @@ selectstr = "\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"
 print selectstr
 
 def applycities(fc):
-	p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\%s" % fc
+	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
