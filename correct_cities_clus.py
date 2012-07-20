@@ -54,16 +54,17 @@ def applyroads(fc):
 def fixclu(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "lclu_p5_%s" % fc
-	calcfield = "\"%s.VegNum\" % fc
+	# Remember don't need to embed quotes for the calcfield
+	calcfield = "%s.VegNum" % fc
 	cluobjs_dbf = "C:\\WorkSpace\\Phase5\\Objects\\cluobjs.dbf"
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "joining to clu dbf"
-	DM.AddJoin(layername, "morap_objid", cluobjs_dbf, "morap_objid", "KEEP_COMMON")
+	DM.AddJoin(layername, "morap_objid", cluobjs_dbf, "morap_obji", "KEEP_COMMON")
 	print "select all to see how many we have"
 	DM.SelectLayerByAttribute(layername, "SWITCH_SELECTION", "")
-	if (int(str(GetCount(layername))) > 0):
-		print "calculating for " + str(GetCount(layername)) + " objects"
+	if (int(str(DM.GetCount(layername))) > 0):
+		print "calculating for " + calcfield + " for " + str(DM.GetCount(layername)) + " objects"
 		DM.CalculateField(layername, calcfield, "[cluobjs.VegNum]", "VB", "")
 	else:
 		print "no objects selected"
@@ -75,9 +76,10 @@ for item in fcs:
 	processstart = time()
 	applycities(item)
 	print "process time (cities)= " + elapsed_time(processstart) + " for " + item + "."
-	processstart = time()
-	applyroads(item)
-	print "process time (roads)= " + elapsed_time(processstart) + " for " + item + "."
+#	fix roads in initial model application
+#	processstart = time()
+#	applyroads(item)
+#	print "process time (roads)= " + elapsed_time(processstart) + " for " + item + "."
 	if (item == "north_working"):
 		processstart = time()
 		fixclu(item)
