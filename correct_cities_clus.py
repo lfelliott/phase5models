@@ -69,9 +69,9 @@ def fixclu(fc):
 		print "no objects selected"
 	DM.RemoveJoin(layername, "cluobjs")
 
+print "working on " + gdbpath	
 fcs = ["west_working", "south_working", "north_working"]
 for item in fcs:
-	print "working on " + gdbpath
 	processstart = time()
 	applycities(item)
 	print "process time (cities)= " + elapsed_time(processstart) + " for " + item + "."
