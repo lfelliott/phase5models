@@ -65,13 +65,14 @@ def applyliveoak(fc):
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
 	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstrlo)
+	print "remove polys within live oak range from selection"
 	DM.SelectLayerByLocation(layername, "COMPLETELY_WITHIN", lolayer, "", "REMOVE_FROM_SELECTION")	
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculating on " + str(DM.GetCount(layername)) + " objects."
 		DM.CalculateField(layername, "VegNum", 1401)
 	else:
 		print "nothing to calculate"
-	print "selecting by location"		
+		
 
 	
 	
@@ -81,6 +82,7 @@ applyjuniper("north_working")
 fcs = ["north_working", "south_working"]
 for item in fcs:
 	processstart = time()
+	# saltcedar fix needs to go first
 	fixsaltcedar(item)
 	print "process time (fixsaltcedar)= " + elapsed_time(processstart) + " for " + item + "."
 	processstart = time()

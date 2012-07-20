@@ -44,6 +44,7 @@ def addcliffs(fc):
 
 fcs = ["south_working", "west_working", "north_working"]
 for item in fcs:
+	print "working on " + gdbpath
 	processstart = time()
 	addcliffs(item)	
 	print "process time (cliffs)= " + elapsed_time(processstart) + " for " + item + "."
