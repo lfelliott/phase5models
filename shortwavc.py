@@ -1,3 +1,8 @@
+# Traslation of shortwavc.aml (written by Lalit Kumar and Niklaus E. Zimmermann) from aml to python
+# Result differs from aml output slightly, probably from rounding errors
+# I probably trust the math in python slightly better than Arc
+# Lee F. Elliott 7/20/2012
+
 import arcinfo
 from arcpy import env
 import arcpy
