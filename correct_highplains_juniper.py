@@ -74,11 +74,8 @@ def applyliveoak(fc):
 		print "nothing to calculate"
 		
 
-	
-	
-applyjuniper("north_working")
-
-
+print "working on " + gdbpath
+northfc = "north_working"
 fcs = ["north_working", "south_working"]
 for item in fcs:
 	processstart = time()
@@ -88,3 +85,6 @@ for item in fcs:
 	processstart = time()
 	applyliveoak(item)
 	print "process time (liveoak)= " + elapsed_time(processstart) + " for " + item + "."
+processstart = time()
+applyjuniper(northfc)
+print "process time (juniper)= " + elapsed_time(processstart) + " for north."
