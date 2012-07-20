@@ -70,8 +70,9 @@ def applyelimupdate(fc):
 		else:
 			print "no remaining problem polygons to eliminate in " + fc
 
-#fcs = ["south_working", "west_working", "north_working"]
-fcs = ["west_working", "south_working"]
+print "working on " + gdbpath
+fcs = ["south_working", "west_working", "north_working"]
+#fcs = ["west_working", "south_working"]
 #fcs = ["north_working"]
 for item in fcs:
 	processstart = time()
