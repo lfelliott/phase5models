@@ -1,4 +1,5 @@
 # Traslation of shortwavc.aml (written by Lalit Kumar and Niklaus E. Zimmermann) from aml to python
+# Original was developed based on Kumar, L., Skidmore, A.K., Knowles, E., (1997) Modelling  Topographic Variation in Solar Radiation in a GIS Environment. International Journal of Geographical Information Science, 11(5): 475-497.
 # Result differs from aml output slightly, probably from rounding errors
 # I probably trust the math in python slightly better than Arc
 # Lee F. Elliott 7/20/2012
@@ -76,7 +77,9 @@ acosminusone = math.acos(-1)
 acosone = math.acos(1)
 
 while daynumber <= dayend:
-	vio = 1.367 * (1 + 0.034 * math.cos(360 * deg2rad * daynumber / 365))
+	# solar radiation, Kumar et al 1997, Eq. 7
+	vio = 1.367 * (1 + 0.0344 * math.cos(360 * deg2rad * daynumber / 365))
+	# solar declination, Kumar et al 1997, Eq. 4
 	decl = 23.45 * deg2rad * math.sin(deg2rad * 360 * (284 + daynumber)/365)
 	tandecl = math.tan(decl)
 	cosdecl = math.cos(decl)
@@ -115,11 +118,13 @@ while daynumber <= dayend:
 			solarazdeg = solaraz * 57.29578
 		else:
 			solarazdeg = 360 - (abs(solaraz) * 57.29578)
-		# next line was modified to allow newer arcinfo
-		#M = 1229 + (614 * sin(solaralt)**2)**0.5 - 614 * sin(solaralt)
+		# Air mass correction, Kumar et al 1997, Eq. 11
 		M = (math.sqrt(1229 + (614 * sinsolalt)**2))-614 * sinsolalt
 		# e = 2.7182818
-		# tau = 0.56 * e ** (-0.65 * M) + e ** (-0.095 * M)
+		# Tau is atmospheric transmittance, Kumar et al 1997, Eq. 14
+		# tau = 0.56 * (e ** (-0.65 ** M) + e ** (-0.095 ** M)
+		# Shortwave solar radiation striking surface normal to sun, Kumar et al 1997, Eq. 
+		# vis = vio * tau
 		vis = vio * 0.56 * (math.exp(-0.65 * M) + math.exp(-0.095 * M))
 		solaraltdeg = solaralt * 57.29578
 		if (solarazdeg <= 180):
@@ -142,8 +147,6 @@ while daynumber <= dayend:
 		wattsgrid = vis * cosi * sungrid2 * shaded * 60 * interval
 		initialgrid = wattsgrid + initialgrid
 		hourangle = hourangle - timev
-		# limit to one pass for test
-		# hourangle = sunset - 1
 		vpass = vpass + 1
 	daynumber = daynumber + 1
 initialgrid = Int(initialgrid)
