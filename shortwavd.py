@@ -11,8 +11,11 @@ import math
 from time import time
 from string import zfill
 from datetime import date
+import sys
+import os
 
-# env.workspace = "e:/workspace/p6"
+#env.workspace = "e:/workspace/p6"
+env.workspace = sys.path[0]
 
 def elapsed_time(t0):
 	seconds = int(round(time() - t0))
@@ -145,5 +148,5 @@ while daynumber <= dayend:
 	daynumber = daynumber + 1
 initialgrid = Int(initialgrid)
 initialgrid.save(outgrid)
-print "process time = " + elapsed_time(starttime) + " for optimized.\n"
+print "process time = " + elapsed_time(starttime) + ".\n"
 		
