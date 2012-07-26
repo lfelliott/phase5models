@@ -3,7 +3,7 @@ from time import time
 from string import zfill
 from datetime import date
 
-gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
 selectbase = "\"slope100\" = 1 AND \"epa_ecoreg\" like "
 vegtypes =[]
 vegdict = {}
@@ -42,7 +42,7 @@ def addcliffs(fc):
 			print "adding cliff to " + str(DM.GetCount(layername)) + " objects"
 			DM.CalculateField(layername, "VegNum", clifftype, "VB", "")
 
-fcs = ["south_working", "west_working", "north_working"]
+fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
 for item in fcs:
 	print "working on " + gdbpath
 	processstart = time()

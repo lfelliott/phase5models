@@ -3,7 +3,7 @@ from time import time
 from string import zfill
 from datetime import date
 
-gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
 
 juniper_range = "D:\\GIS\\US\\Little\\junipers.shp"
 juniperlayer = "l_juniper"
@@ -75,8 +75,8 @@ def applyliveoak(fc):
 		
 
 print "working on " + gdbpath
-northfc = "north_working"
-fcs = ["north_working", "south_working"]
+northfc = "north_checksoils"
+fcs = ["south_checksoils", "north_checksoils"]
 for item in fcs:
 	processstart = time()
 	# saltcedar fix needs to go first

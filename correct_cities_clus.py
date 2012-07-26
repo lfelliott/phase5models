@@ -4,7 +4,7 @@ from string import zfill
 from datetime import date
 
 
-gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
 cities = "D:\\GIS\\Texas Base Layers.gdb\\Cities"
 citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
@@ -69,9 +69,29 @@ def fixclu(fc):
 	else:
 		print "no objects selected"
 	DM.RemoveJoin(layername, "cluobjs")
+	
+def fixorchards(fc):
+	p5_working = "%s%s" % (gdbpath, fc)
+	layername = "lclu_p5_%s" % fc
+	# Remember don't need to embed quotes for the calcfield
+	calcfield = "%s.VegNum" % fc
+	orchard_dbf = "C:\\WorkSpace\\Phase5\\Objects\\orchards.dbf"
+	print "Making working layer for " + fc
+	DM.MakeFeatureLayer(p5_working, layername)
+	print "joining to orchard dbf"
+	DM.AddJoin(layername, "morap_objid", orchard_dbf, "morap_obji", "KEEP_COMMON")
+	print "select all to see how many we have"
+	DM.SelectLayerByAttribute(layername, "SWITCH_SELECTION", "")
+	if (int(str(DM.GetCount(layername))) > 0):
+		print "calculating for " + calcfield + " for " + str(DM.GetCount(layername)) + " objects"
+		DM.CalculateField(layername, calcfield, "[orchards.VegNum]", "VB", "")
+	else:
+		print "no objects selected"
+	DM.RemoveJoin(layername, "orchards")
 
 print "working on " + gdbpath	
-fcs = ["west_working", "south_working", "north_working"]
+
+fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
 for item in fcs:
 	processstart = time()
 	applycities(item)
@@ -80,7 +100,10 @@ for item in fcs:
 #	processstart = time()
 #	applyroads(item)
 #	print "process time (roads)= " + elapsed_time(processstart) + " for " + item + "."
-	if (item == "north_working"):
-		processstart = time()
-		fixclu(item)
-		print "process time (clu)= " + elapsed_time(processstart) + " for " + item + "."
+
+processstart = time()
+fixclu("north_checksoils")
+print "process time (clu)= " + elapsed_time(processstart)
+processtart = time()
+fixorchards("west_checksoils")
+print "process time (orchards) = " + elapsed_time(processstart)

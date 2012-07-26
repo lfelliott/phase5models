@@ -4,7 +4,7 @@ from time import time
 from string import zfill
 from datetime import date
 
-gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_working_20120712.gdb\\"
+gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
 elim_objs = "%stemp_elim" % gdbpath
 
 eliminated_result = "%stemp_eliminated" % gdbpath
@@ -71,7 +71,7 @@ def applyelimupdate(fc):
 			print "no remaining problem polygons to eliminate in " + fc
 
 print "working on " + gdbpath
-fcs = ["south_working", "west_working", "north_working"]
+fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
 #fcs = ["west_working", "south_working"]
 #fcs = ["north_working"]
 for item in fcs:
