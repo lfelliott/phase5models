@@ -13,6 +13,7 @@ for item in f.readlines():
 	ecogrps.append(item.strip())
 f.close()
 p5path = "C:\\WorkSpace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
+outf = open("c:/workspace/phase5/Objects/soilcheck.txt", "a")
 def checksoils(fc):
 	p5_working = "%s%s" % (p5path, fc)
 	# p5_working = "C:\\WorkSpace\\Phase5\\Objects\\p5_working_test.gdb\\north_test4"
@@ -36,6 +37,8 @@ def checksoils(fc):
 			countint = 0
 			countint = int(str(DM.GetCount(layername)))
 			print str(countint) + " objects remaining for calculation."
+			outstr = "\"%s\", \"%s\", %s\n" % (fc, ecogrp, countint)
+			outf.writelines(outstr)
 			if (countint > 0):
 				cntchangedobjects = cntchangedobjects + countint
 				DM.CalculateField(layername, "EcoGroup2", calcstr, "VB")
@@ -45,6 +48,7 @@ def checksoils(fc):
 			print "No objects to remove or calculate."
 		print str(cntchangedobjects) + " objects changed.\n\a"
 
-fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
+#fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
+fcs = ["west_checksoils", "north_checksoils"]
 for fc in fcs:
 	checksoils(fc)
