@@ -14,8 +14,8 @@ citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
 print "Making city layer."
 
-selectstr = "(\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 11 or \"lulc\" = 31 or \"lulc\" =27) and not (\"VegNum\" = 9410 or \"VegNum\" = 9411)"
-print selectstr
+selectstrc = "(\"lulc\" = 1 or \"lulc\" = 3 OR \"lulc\" = 5 or \"lulc\" = 19 or \"lulc\" = 11 or \"lulc\" = 31 or \"lulc\" =27) and not (\"VegNum\" = 9410 or \"VegNum\" = 9411)"
+print selectstrc
 
 starttime = time()
 
@@ -28,7 +28,7 @@ def elapsed_time(t0):
 def applycities(fc):
 	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "l_p5_%s" % fc
-	print "Making working layer for " + fc
+	print "\nMaking working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by location"
 	DM.SelectLayerByLocation(layername, "COMPLETELY_WITHIN", citylayer, "", "NEW_SELECTION")
