@@ -15,7 +15,7 @@ lolayer = "l_liveoak"
 print "Making live oak layer."
 DM.MakeFeatureLayer(liveoakrange, lolayer)
 
-selectstr = "(\"VegNum\" = 9101 or \"VegNum\" = 9105) and  \"epa_ecoreg\" like '25%'"
+selectstrj = "(\"VegNum\" = 9101 or \"VegNum\" = 9105) and  \"epa_ecoreg\" like '25%'"
 print selectstr
 selectstrlo = "\"VegNum\" = 1402"
 print selectstrlo
@@ -34,7 +34,7 @@ def applyjuniper(fc):
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
-	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstr)
+	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstrj)
 	DM.SelectLayerByLocation(layername, "INTERSECT", juniperlayer, "", "REMOVE_FROM_SELECTION")	
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculating on " + str(DM.GetCount(layername)) + " objects."
@@ -45,13 +45,12 @@ def applyjuniper(fc):
 
 def fixsaltcedar(fc):
 	# this is mostly on riparian or loamy, clay loam etc.
-	selectstr2 = "(\"lulc\" = 11 or \"lulc\" = 19) and \"EcoGroup\" not like '%Bottomland%' and \"VegNum\" = 9204 and (\"epa_ecoreg\" like '30%' or \"epa_ecoreg\" like '26%' or \"epa_ecoreg\" = '24e')"
 	p5_working = "%s%s" % (gdbpath, fc)
 	layername = "ls_p5_%s" % fc
 	print "Making working layer for " + fc
 	DM.MakeFeatureLayer(p5_working, layername)
 	print "selecting by attribute"
-	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstr2)
+	DM.SelectLayerByAttribute(layername, "NEW_SELECTION", selectstrsc)
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculating on " + str(DM.GetCount(layername)) + " objects."
 		DM.CalculateField(layername, "VegNum", 9105)

@@ -5,6 +5,10 @@ from datetime import date
 
 
 gdbpath = "c:\\Workspace\\Phase5\\Objects\\p5_checksoils_20120725.gdb\\"
+north = "north_checksoils"
+west = "west_checksoils"
+south = "south_checksoils"
+
 cities = "D:\\GIS\\Texas Base Layers.gdb\\Cities"
 citylayer = "l_cities"
 DM.MakeFeatureLayer(cities, citylayer)
@@ -29,7 +33,7 @@ def applycities(fc):
 	print "selecting by location"
 	DM.SelectLayerByLocation(layername, "COMPLETELY_WITHIN", citylayer, "", "NEW_SELECTION")
 	print "selecting by attribute"
-	DM.SelectLayerByAttribute(layername, "SUBSET_SELECTION", selectstr)
+	DM.SelectLayerByAttribute(layername, "SUBSET_SELECTION", selectstrc)
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculating on " + str(DM.GetCount(layername)) + " objects."
 #		DM.CalculateField(layername, "lulc", 25)
@@ -84,14 +88,14 @@ def fixorchards(fc):
 	DM.SelectLayerByAttribute(layername, "SWITCH_SELECTION", "")
 	if (int(str(DM.GetCount(layername))) > 0):
 		print "calculating for " + calcfield + " for " + str(DM.GetCount(layername)) + " objects"
-		DM.CalculateField(layername, calcfield, "[orchards.VegNum]", "VB", "")
+		DM.CalculateField(layername, calcfield, 9304, "VB", "")
 	else:
 		print "no objects selected"
 	DM.RemoveJoin(layername, "orchards")
 
 print "working on " + gdbpath	
 
-fcs = ["south_checksoils", "west_checksoils", "north_checksoils"]
+fcs = [south, west, north]
 for item in fcs:
 	processstart = time()
 	applycities(item)
@@ -102,8 +106,8 @@ for item in fcs:
 #	print "process time (roads)= " + elapsed_time(processstart) + " for " + item + "."
 
 processstart = time()
-fixclu("north_checksoils")
+fixclu(north)
 print "process time (clu)= " + elapsed_time(processstart)
 processtart = time()
-fixorchards("west_checksoils")
+fixorchards(west)
 print "process time (orchards) = " + elapsed_time(processstart)

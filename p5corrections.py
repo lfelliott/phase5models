@@ -255,11 +255,11 @@ for item in fcs:
 	print "process time (cities)= " + elapsed_time(processstart) + " for " + item + "."
 	if (item == north):
 		processstart = time()
-		fixclu("north_checksoils")
+		fixclu(item)
 		print "process time (clu)= " + elapsed_time(processstart)
 	if (item == west):
 		processtart = time()
-		fixorchards("west_checksoils")
+		fixorchards(item)
 		print "process time (orchards) = " + elapsed_time(processstart)
 		
 print "Total elapsed time: " + elapsed_time(starttime)
